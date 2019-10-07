@@ -133,10 +133,10 @@ export default {
     background-size: cover;
   }
   .greenCol{
-    background-color: #46a751;
+    background-color: #28a745;
   }
   .bottomBox{
-    background-color: #46a751;
+    background-color: #28a745;
     width: 200px;
     height: 200px;
     position: relative;
@@ -171,7 +171,7 @@ export default {
 
   /*倒三角*/
   .arms {
-    width: 65px;
+    width: 55px;
     height: 45px;
     color: #fff;
     line-height: 45px;
@@ -193,7 +193,7 @@ export default {
     border-color: #393939 transparent transparent transparent;
     border-style: solid;
     border-width: 20px;
-    top: 32px;
-    left: 12px;
+    top: 30px;
+    left: 8px;
   }
 </style>

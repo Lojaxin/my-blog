@@ -1,13 +1,24 @@
 <template>
-    <div class="goods-editor">
-        <div @click="geteditor">点我</div>
-        <!-- 工具栏容器 -->
-        <div id="toolbar-container"></div>
+    <div class="myEdit">
+        <b-container>
+            <b-row  class="justify-content-md-center">
+                <b-col md="10" cols="12">
+                    <div class="goods-editor">
+                        <b-form-input v-model="title" placeholder="请输入标题" class="titInput"></b-form-input>
+                        <!-- 工具栏容器 -->
+                        <div id="toolbar-container"></div>
 
-        <!-- 编辑器容器 -->
-        <div id="editor">
-            <!-- <p>This is the initial editor content.</p> -->
-        </div>
+                        <!-- 编辑器容器 -->
+                        <div id="editor">
+                            <!-- <p>This is the initial editor content.</p> -->
+                        </div>
+                        <div class="subBtn">
+                            <b-button variant="success" @click="geteditor">发布</b-button>
+                        </div>
+                    </div>
+                </b-col>
+            </b-row>
+        </b-container>
     </div>
 </template>
 
@@ -20,13 +31,15 @@
         data() {
             return {
                 editor: null, // 编辑器实例
-                oldValue:''
+                oldValue:'',
+                title:''
             }
         },
         mounted() {
             this.initCKEditor()
         },
         methods: {
+            //初始化富文本编辑器
             initCKEditor() {
                 let that = this;
                 class MyUploadAdapter {
@@ -70,9 +83,13 @@
                     };
                     this.editor = editor // 将编辑器保存起来，用来随时获取编辑器中的内容等，执行一些操作
                 }).catch(error => {
-                    console.error(error)
+                    that.$bvToast.toast(error.errMsg, {
+                        title: '保存失败',
+                        autoHideDelay: 3000
+                    })
                 })
             },
+            //获取富文本编辑器内容
             geteditor(){
                 console.log(this.editor.getData())
             }
@@ -81,5 +98,21 @@
 </script>
 
 <style scoped>
-
+.myEdit{
+    width: 100%;
+    height: 100%;
+    padding-top: 60px;
+    background-color: rgb(246,246,246);
+}
+    .goods-editor{
+        background-color: #fff;
+        padding: 20px;
+    }
+    .titInput{
+        margin-bottom: 20px;
+    }
+    .subBtn{
+        margin-top: 20px;
+        text-align: center;
+    }
 </style>

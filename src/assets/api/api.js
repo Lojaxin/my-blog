@@ -16,3 +16,7 @@ export const LOGIN=(param,config)=>{
 export const REGISTER=(param,config)=>{
     return Ajax.post('/api/register',param,config).then(res=>res.data)
 }
+//富文本信息上传
+export const EDIT_POST=(param,config)=>{
+    return Ajax.post("/api/editPost",param,config).then(res=>res.data)
+}
