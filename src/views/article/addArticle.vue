@@ -23,7 +23,7 @@
 </template>
 
 <script>
-    import {UPLOAD_IMG} from "../../assets/api/api.js"
+    import {UPLOAD_IMG,EDIT_POST} from "../../assets/api/api.js"
     import CKEditor from '@ckeditor/ckeditor5-build-classic'//只在这个页面引入富文本
     import '@ckeditor/ckeditor5-build-classic/build/translations/zh-cn' //中文包
     export default {
@@ -89,9 +89,37 @@
                     })
                 })
             },
+            getDate(){
+                var date = new Date();
+                var Y = date.getFullYear() + '-';
+                var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+                var D = date.getDate() + ' ';
+                var h = date.getHours() + ':';
+                var m = date.getMinutes() + ':';
+                var s = date.getSeconds();
+                return Y+M+D+h+m+s;
+            },
             //获取富文本编辑器内容
             geteditor(){
-                console.log(this.editor.getData())
+                let requestRes={
+                    title:this.title,
+                    editor:this.editor.getData(),
+                    userId:this.$store.state.user.userId,
+                    upDate:this.getDate()
+                };
+                EDIT_POST(requestRes).then(res=>{
+                    if(res.succ){
+                        this.$bvToast.toast("恭喜您!文章发表成功啦!", {
+                            title: '发表成功',
+                            autoHideDelay: 3000
+                        })
+                    }else{
+                        this.$bvToast.toast(res.errMsg, {
+                            title: '发表失败',
+                            autoHideDelay: 3000
+                        })
+                    }
+                })
             }
         }
     }

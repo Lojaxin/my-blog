@@ -18,5 +18,5 @@ export const REGISTER=(param,config)=>{
 }
 //富文本信息上传
 export const EDIT_POST=(param,config)=>{
-    return Ajax.post("/api/editPost",param,config).then(res=>res.data)
+    return Ajax.post("/api/storageeditor",param,config).then(res=>res.data)
 }

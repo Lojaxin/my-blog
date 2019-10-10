@@ -95,7 +95,8 @@
                 }
                 LOGIN(this.login).then(res=>{
                     if(res.succ){
-                        this.$router.push({path:'/'})
+                        this.$store.commit('getUser',res.data);
+                        window.history.back(-1);
                     }else{
                         this.$bvToast.toast(res.errMsg, {
                             title: '登录失败',
@@ -129,7 +130,7 @@
                 }
                 REGISTER(this.register).then(res=>{
                     if(res.succ){
-                        this.$bvToast.toast("请您 继续登录", {
+                        this.$bvToast.toast("请您继续登录", {
                             title: '注册成功',
                             autoHideDelay: 3000
                         })
