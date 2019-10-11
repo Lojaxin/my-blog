@@ -130,7 +130,7 @@
                 }
                 REGISTER(this.register).then(res=>{
                     if(res.succ){
-                        this.$bvToast.toast("请您继续登录", {
+                        this.$bvToast.toast(res.errMsg, {
                             title: '注册成功',
                             autoHideDelay: 3000
                         })
