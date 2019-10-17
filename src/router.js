@@ -27,6 +27,11 @@ export default new Router({
           name: 'addArticle',
           component: () => import('./views/article/addArticle.vue')
       },
+      {
+          path: '/articleText',
+          name: 'articleText',
+          component: () => import('./views/article/articleText.vue')
+      },
     {
         path: '/about',
         name: 'about',

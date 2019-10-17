@@ -80,7 +80,7 @@
                       val.check =  false;
                   }
                 }
-                if(newVal=='/addArticle'){
+                if(newVal=='/addArticle' || newVal=='/articleText'){
                     this.memuList[1].check = true
                 }
             }

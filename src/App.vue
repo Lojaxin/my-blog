@@ -49,4 +49,8 @@ html,body,#app{
   width: 50%;
   text-align: center;
 }
+
+.image img{
+  width: 100%;
+}
 </style>

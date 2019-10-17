@@ -12,7 +12,10 @@
                 <b-col><b-button variant="success" @click="$router.push({path:'/login'})">登录</b-button></b-col>
             </b-row>
             <b-row v-else>
-                <b-col>{{'亲爱的'+nickName+', 欢迎你!'}}</b-col>
+                <b-col>
+                    <div>{{'亲爱的'+nickName+', 欢迎你!'}}</div>
+                    <div style="margin-top: 20px;"><b-button variant="success" @click="$router.push({path:'/addArticle'})">发表文章</b-button></div>
+                </b-col>
             </b-row>
         </b-container>
     </div>
@@ -26,6 +29,12 @@
                 headImg:'',
                 nickName:''
             }
+        },
+        created(){
+            let userInfo = this.$store.state.user;
+            if(userInfo.userName){
+                this.nickName = userInfo.nickName || userInfo.userName;
+            }
         }
     }
 </script>
@@ -35,6 +44,7 @@
     margin-left: 15px;
     width: 20rem;
     background-color: #fff;
+    max-height: 600px;
 }
 .uscTop{
     border-bottom: 1px solid #ccc;
