@@ -24,7 +24,15 @@ export const EDIT_POST=(params,config)=>{
 export const ALL_ARTICLE=(params,config)=>{
     return Ajax.get("/api/allArticle",{params},config).then(res=>res.data)
 }
-//查询所有的文章列表
+//查询文章详情
 export const QUERY_ARTICLE=(params,config)=>{
     return Ajax.get("/api/queryArticle",{params},config).then(res=>res.data)
+}
+//提交留言
+export const ADD_REPLY=(params,config)=>{
+    return Ajax.post("/api/addReply",params,config).then(res=>res.data)
+}
+//查询所有留言
+export const QUERY_REPLY=(params,config)=>{
+    return Ajax.post("/api/queryReply",params,config).then(res=>res.data)
 }

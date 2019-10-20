@@ -11,6 +11,12 @@
         name: 'app',
         components:{
             Layout
+        },
+        created(){
+            let userInfo = localStorage.getItem('userInfoForMe');
+            if(userInfo){
+                this.$store.commit('getUser',JSON.parse(userInfo));
+            }
         }
     }
 </script>

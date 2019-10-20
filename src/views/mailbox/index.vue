@@ -2,21 +2,25 @@
     <div class="mailPage">
         <b-container>
             <b-row  class="justify-content-md-center">
-                <b-col md="10" cols="12">
+                <b-col md="10" class="padding0">
                     <div class="mailBody">
                         <div>
                             <b-form-textarea
                                     id="textarea-rows"
                                     placeholder="请留下你想说的话吧"
-                                    v-model="text"
+                                    v-model="firstText"
                                     rows="7"
                             ></b-form-textarea>
+                            <div class="btns">
+                                <b-button variant="success" @click="subFirst">确定</b-button>
+                                <b-button @click="firstText=''">重置</b-button>
+                            </div>
                         </div>
                         <b-container fluid>
                             <b-row align-v="center">
-                                <b-col cols="4" class="myCols4">留言(<span v-text="rows"></span>)</b-col>
+                                <b-col cols="4" class="myCols4">留言(<span v-text="paging.total"></span>)</b-col>
                                 <b-col cols="8" class="myCols8">
-                                    <b-pagination v-model="currentPage" :total-rows="rows" size="sm" align="right" @change="changePage"></b-pagination>
+                                    <b-pagination v-model="paging.currentPage" :total-rows="paging.total" size="sm" align="right" @change="changePage"></b-pagination>
                                 </b-col>
                             </b-row>
                         </b-container>
@@ -24,28 +28,47 @@
                             <b-container fluid>
                                 <b-row>
                                     <div class="headImg">
-                                        <b-img :src="item.headImg" fluid v-if="item.headImg!=''"></b-img>
+                                        <b-img :src="item.headImg" fluid v-if="item.headImg"></b-img>
                                         <i class="iconfont icon-yonghu-tianchong" v-else></i>
                                     </div>
                                     <b-col>
-                                        <div class="nickStyle">昵称 <span>2019-09-09</span></div>
-                                        <div>留言的内容</div>
+                                        <div class="nickStyle">{{item.userName}}<span v-text="item.uploadTime"></span></div>
+                                        <div v-text="item.message"></div>
                                         <div class="otherOps">
-                                            <i class="iconfont icon-dianzan"></i>
+                                            <i class="iconfont icon-dianzan"></i><span v-text="'('+item.goods+')'"></span>
                                             <i class="iconfont icon-message" @click="item.showTextarea = true"></i>
+                                        </div>
+                                    </b-col>
+                                </b-row>
+                                <b-row v-if="item.children.length>0">
+                                    <b-col>
+                                        <div class="reply">
+                                            <b-container fluid>
+                                                <b-row class="marginBot10" v-for="(childItem,childIndex) in item.children" :key="childIndex">
+                                                    <div class="headImg">
+                                                        <b-img :src="childItem.headImg" fluid v-if="childItem.headImg"></b-img>
+                                                        <i class="iconfont icon-yonghu-tianchong" v-else></i>
+                                                    </div>
+                                                    <b-col>
+                                                        <div class="replyNick">{{childItem.userName}}<span v-text="childItem.uploadTime"></span></div>
+                                                        <div v-text="childItem.message"></div>
+                                                    </b-col>
+                                                </b-row>
+                                            </b-container>
                                         </div>
                                     </b-col>
                                 </b-row>
                                 <b-row>
                                     <b-col>
                                         <div v-show="item.showTextarea" class="longText">
+
                                             <b-form-textarea
                                                     id="textarea"
                                                     v-model="item.text"
                                                     placeholder="请输入"
                                             ></b-form-textarea>
                                             <div class="btns">
-                                                <b-button variant="success" @click="yes">确定</b-button>
+                                                <b-button variant="success" @click="yes(item)">确定</b-button>
                                                 <b-button @click="item.showTextarea = false">取消</b-button>
                                             </div>
                                         </div>
@@ -57,38 +80,113 @@
                 </b-col>
             </b-row>
         </b-container>
+        <b-modal id="my-modal" hide-footer size="sm" title="提示">
+            <div class="d-block text-center">
+                <p>您还没有登录,是否先去登录?</p>
+            </div>
+            <div class="btns" style="text-align: right">
+                <b-button variant="success" @click="$router.push({path:'/login'})">确定</b-button>
+                <b-button @click="$bvModal.hide('my-modal')">取消</b-button>
+            </div>
+        </b-modal>
     </div>
 </template>
 
 <script>
+    import {ADD_REPLY,QUERY_REPLY} from "../../assets/api/api.js";
     export default {
         name: "index",
         data(){
             return{
-                msgList:[
-                    {
-                        headImg:'',
-                        text:'',
-                        showTextarea:false
-                    },
-                    {
-                        headImg:'',
-                        text:'',
-                        showTextarea:false
-                    }
-                ],
+                msgList:[],
                 text:'',
-                rows: 100,
-                currentPage: 1
+                firstText:'',
+                paging:{
+                    total: 0,//总留言
+                    nums:10,//默认一页10条数据
+                    currentPage: 1 //默认是第一页
+                }
             }
         },
+        created(){
+          this.queryMsg();
+        },
         methods:{
-            yes(){
-                console.log(this.msgList);
+            queryMsg(){
+                //查询留言数据
+                QUERY_REPLY(this.paging).then(res=>{
+                    if(res.succ){
+                        this.paging.total=res.data.total;
+                        this.paging.nums=res.data.nums;
+                        this.paging.currentPage=res.data.currentPage;
+                        //给每个留言增加上一个showTextarea属性来控制显示隐藏
+                        let newList = [];
+                        for(let val of res.data.backInfo){
+                            val.showTextarea = false;
+                            newList.push(val)
+                        }
+                        this.msgList = newList;
+                    }
+                })
+            },
+            //添加留言及回复
+            addreply(requestRes){
+                ADD_REPLY(requestRes).then(res=>{
+                    if(res.succ){
+                        //   重新查询一次渲染一次留言数据
+                        this.queryMsg()
+                        this.$bvToast.toast("留言成功!", {
+                            title: '提示',
+                            autoHideDelay: 3000
+                        })
+                    }
+                })
+            },
+            //提交回复
+            yes(item){
+                if(this.$store.state.user.userId){
+                    if(item.text==''){
+                        this.$bvToast.toast(`请先留下你的笔墨..`, {
+                            title: '提示',
+                            autoHideDelay: 3000
+                        })
+                        return
+                    }
+                    let requestRes = {
+                        userId:this.$store.state.user.userId,
+                        message:item.text,
+                        uploadTime:this.getTime(),
+                        parentId:item.id
+                    }
+                    this.addreply(requestRes)
+                }else{
+                    this.$bvModal.show('my-modal')
+                }
             },
             changePage(val){
-                console.log(val)//当前选中
-                console.log(this.currentPage)//之前选中
+                this.paging.currentPage = val;
+                this.queryMsg()
+            },
+            //提交留言
+            subFirst(){
+                if(this.$store.state.user.userId){
+                    if(this.firstText==''){
+                        this.$bvToast.toast(`请先留下你的笔墨..`, {
+                            title: '提示',
+                            autoHideDelay: 3000
+                        })
+                        return
+                    }
+                    let requestRes = {
+                        userId:this.$store.state.user.userId,
+                        message:this.firstText,
+                        uploadTime:this.getTime(),
+                        parentId:'0'
+                    }
+                    this.addreply(requestRes)
+                }else{
+                    this.$bvModal.show('my-modal')
+                }
             }
         }
     }
@@ -97,9 +195,22 @@
 <style scoped>
 .mailPage{
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     padding-top: 60px;
     background-color: rgb(246,246,246);
+}
+.mailPage .col{
+    padding: 0;
+}
+.mailPage .btn-success{
+    background-color: #007bff;
+    border-color: #007bff;
+}
+.padding0{
+    padding: 0;
+}
+.marginBot10{
+    margin-bottom: 10px;
 }
     .mailBody{
         background-color: #fff;
@@ -110,13 +221,13 @@
         padding: 15px 10px;
     }
     .headImg{
-        width: 50px;
-        height: 50px;
+        width: 42px;
+        height: 42px;
         border-radius: 50%;
         overflow: hidden;
         background-color: #ccc;
         text-align: center;
-        line-height: 50px;
+        line-height: 42px;
     }
     .headImg img{
         width: 100%;
@@ -127,13 +238,22 @@
 }
     .nickStyle{
         font-size: 14px;
-        padding:10px 0;
+        padding:10px 0 10px 10px;
+        color: #007bff;
+    }
+    .replyNick{
+        color: #007bff;
     }
     .nickStyle span{
-        margin-left: 20px;
+        margin-left: 15px;
         color: #bbb;
         font-size: 12px;
     }
+.replyNick span{
+    margin-left: 15px;
+    color: #bbb;
+    font-size: 12px;
+}
     .otherOps{
         text-align: right;
         /*margin-bottom: 15px;*/
@@ -145,7 +265,7 @@
     cursor: pointer;
 }
 .otherOps .iconfont:hover{
-    color: deepskyblue;
+    color: #007bff;
 }
 .longText{
     border-top: 1px solid #ccc;
@@ -163,4 +283,8 @@
 .myCols8 ul{
     margin-bottom: 0;
 }
+    .reply{
+        border-top: 1px solid #ccc;
+        padding:15px 0 0 45px;
+    }
 </style>

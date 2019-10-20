@@ -96,6 +96,8 @@
                 LOGIN(this.login).then(res=>{
                     if(res.succ){
                         this.$store.commit('getUser',res.data);
+                        //登录存储用户信息
+                        localStorage.setItem('userInfoForMe',JSON.stringify(res.data));
                         window.history.back(-1);
                     }else{
                         this.$bvToast.toast(res.errMsg, {

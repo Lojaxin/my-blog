@@ -52,14 +52,15 @@
 <style scoped>
     .artPage{
         width: 100%;
-        height: 100%;
+        min-height: 100%;
         background-color: rgb(246,246,246);
         padding-top: 75px;
+        padding-bottom: 15px;
     }
     .artBody{
         box-sizing: border-box;
         background-color: #fff;
-        padding: 20px;
+        padding: 20px 20px 0 20px;
     }
     .oneArt{
         padding-bottom: 15px;
