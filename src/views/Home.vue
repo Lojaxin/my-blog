@@ -50,7 +50,7 @@
       <b-container class="bv-example-row">
         <b-row>
           <b-col class="aData" v-for="(item,index) in datas" :key="index">
-            <div class="arms">{{item.num}}</div>
+            <div class="arms" @click="toWhere(item.path)">{{item.num}}</div>
             <p v-text="item.title"></p>
           </b-col>
         </b-row>
@@ -60,6 +60,7 @@
 </template>
 
 <script>
+  import {GET_STATISTICS} from "../assets/api/api.js";
 export default {
   name: 'home',
     data(){
@@ -78,20 +79,35 @@ export default {
           datas:[{
               num:"0",
               title:"文章数量",
+              path:"",
               describe:''
           },{
-              num:"1",
+              num:"0",
               title:"留言数量",
+              path:"",
               describe:''
           },{
-              num:"1",
-              title:"总浏览量",
+              num:"",
+              title:"总访问量",
+              path:"",
               describe:''
           }]
       }
     },
+    created(){
+        this.getStatis()
+    },
     methods:{
-
+      getStatis(){
+          GET_STATISTICS().then(res=>{
+              if(res.succ){
+                this.datas = res.data
+              }
+          })
+      },
+        toWhere(path){
+          if(path!='')this.$router.push({path})
+        }
     }
 }
 </script>
@@ -179,6 +195,7 @@ export default {
     display: inline-block;
     position: relative;
     background-color: #393939;
+    cursor: pointer;
     box-shadow: 0px 0px 10px #000
   }
   .arms::after {

@@ -36,3 +36,15 @@ export const ADD_REPLY=(params,config)=>{
 export const QUERY_REPLY=(params,config)=>{
     return Ajax.post("/api/queryReply",params,config).then(res=>res.data)
 }
+//留言点赞接口
+export const MSG_GOODS=(params,config)=>{
+    return Ajax.post("/api/goods",params,config).then(res=>res.data)
+}
+//获取数据统计接口
+export const GET_STATISTICS = (params,config)=>{
+    return Ajax.get("/api/statistics",{params},config).then(res=>res.data)
+}
+//添加浏览量
+export const ADD_BROWSE = (params,config)=>{
+    return Ajax.get("/api/browse",{params},config).then(res=>res.data)
+}

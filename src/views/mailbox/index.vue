@@ -35,7 +35,7 @@
                                         <div class="nickStyle">{{item.userName}}<span v-text="item.uploadTime"></span></div>
                                         <div v-text="item.message"></div>
                                         <div class="otherOps">
-                                            <i class="iconfont icon-dianzan"></i><span v-text="'('+item.goods+')'"></span>
+                                            <i class="iconfont icon-dianzan" @click="isLike(item.id)"></i><span v-text="'('+item.goods+')'"></span>
                                             <i class="iconfont icon-message" @click="item.showTextarea = true"></i>
                                         </div>
                                     </b-col>
@@ -93,7 +93,7 @@
 </template>
 
 <script>
-    import {ADD_REPLY,QUERY_REPLY} from "../../assets/api/api.js";
+    import {ADD_REPLY,QUERY_REPLY,MSG_GOODS} from "../../assets/api/api.js";
     export default {
         name: "index",
         data(){
@@ -101,6 +101,7 @@
                 msgList:[],
                 text:'',
                 firstText:'',
+                isBack:true,//留言点赞的节流阀
                 paging:{
                     total: 0,//总留言
                     nums:10,//默认一页10条数据
@@ -166,6 +167,31 @@
             changePage(val){
                 this.paging.currentPage = val;
                 this.queryMsg()
+            },
+            //留言点赞
+            isLike(id){
+                if(this.$store.state.user.userId){
+                    if(this.isBack){
+                        this.isBack = false;
+                        let requestRes = {
+                            userId:this.$store.state.user.userId,
+                            msgId:id
+                        }
+                        MSG_GOODS(requestRes).then(res=>{
+                            if(res.succ){
+                                this.queryMsg()
+                            }
+                            this.isBack = true;
+                        })
+                    }else{
+                        this.$bvToast.toast(`请勿重复点击`, {
+                            title: '提示',
+                            autoHideDelay: 3000
+                        })
+                    }
+                }else{
+                    this.$bvModal.show('my-modal')
+                }
             },
             //提交留言
             subFirst(){

@@ -38,6 +38,7 @@
 </template>
 
 <script>
+    import {ADD_BROWSE} from '../assets/api/api.js';
     export default {
         name: "layout",
         computed:{
@@ -73,6 +74,8 @@
         },
         watch:{
             nowPath(newVal){
+                //添加一条浏览量
+                ADD_BROWSE()
                 for(let val of this.memuList){
                   if(val.path==newVal){
                       val.check = true
