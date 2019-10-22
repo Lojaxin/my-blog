@@ -84,7 +84,7 @@
             <div class="d-block text-center">
                 <p>您还没有登录,是否先去登录?</p>
             </div>
-            <div class="btns" style="text-align: right">
+            <div class="bvModalBtn" style="text-align: right">
                 <b-button variant="success" @click="$router.push({path:'/login'})">确定</b-button>
                 <b-button @click="$bvModal.hide('my-modal')">取消</b-button>
             </div>

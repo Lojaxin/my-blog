@@ -98,6 +98,7 @@
                         this.$store.commit('getUser',res.data);
                         //登录存储用户信息
                         localStorage.setItem('userInfoForMe',JSON.stringify(res.data));
+                        localStorage.setItem('ljx_token',res.token)
                         window.history.back(-1);
                     }else{
                         this.$bvToast.toast(res.errMsg, {

@@ -30,7 +30,7 @@
         <transition name="box">
             <div class="box d-md-none" v-if="showLeft">
                 <ul class="menuUL">
-                    <li v-for="(item,index) in memuList" :key="index" @click="linkTo(item.path)"><i :class="item.icon"></i>{{item.text}}</li>
+                    <li v-for="(item,index) in memuList2" :key="index" @click="linkTo(item.path)"><i :class="item.icon"></i>{{item.text}}</li>
                 </ul>
             </div>
         </transition>
@@ -69,31 +69,67 @@
                     path:'/mailbox',
                     text:"我的留言"
                 }],
-                showLeft:false
+                memuList2:[{
+                    check:true,
+                    icon:"iconfont icon-shouye",
+                    path:'/',
+                    text:"博客首页"
+                },{
+                    check:false,
+                    icon:"iconfont icon-wenzhangfenlei",
+                    path:'/article',
+                    text:"一些文章"
+                },{
+                    check:false,
+                    icon:"iconfont icon-zuozhe1",
+                    path:'/addArticle',
+                    text:"发表文章"
+                },{
+                    check:false,
+                    icon:"iconfont icon-solid-person",
+                    path:'/about',
+                    text:"关于博主"
+                },{
+                    check:false,
+                    icon:"iconfont icon-message",
+                    path:'/mailbox',
+                    text:"我的留言"
+                }],
+                showLeft:false,
+                oldVal:'/'
             }
         },
         watch:{
-            nowPath(newVal){
-                //添加一条浏览量
-                ADD_BROWSE()
-                for(let val of this.memuList){
-                  if(val.path==newVal){
-                      val.check = true
-                  }else{
-                      val.check =  false;
-                  }
-                }
-                if(newVal=='/addArticle' || newVal=='/articleText'){
-                    this.memuList[1].check = true
+            nowPath(newVal,oldVal){
+                if(newVal!=oldVal){
+                    //添加一条浏览量
+                    ADD_BROWSE()
+                    for(let val of this.memuList){
+                        if(val.path==newVal){
+                            val.check = true
+                        }else{
+                            val.check =  false;
+                        }
+                    }
+                    if(newVal=='/addArticle' || newVal=='/articleText'){
+                        this.memuList[1].check = true
+                    }
                 }
             }
         },
         methods:{
             checkWho(item){
-                this.$router.push({path:item.path});
+                if(item.path!=this.oldVal){
+                    this.oldVal = item.path;
+                    this.$router.push({path:item.path});
+                }
             },
             linkTo(path){
-                this.$router.push({path})
+                if(path!=this.oldVal){
+                    this.oldVal = path;
+                    this.$router.push({path});
+                }
+                this.showLeft=!this.showLeft
             }
         }
     }

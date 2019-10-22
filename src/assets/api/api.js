@@ -4,6 +4,20 @@
 import Ajax from "axios";
 const baseURL = 'http://localhost:8099';  //线上的URL前缀
 Ajax.defaults.baseURL = baseURL;
+//返回token
+
+Ajax.interceptors.request.use(
+    config => {
+        let token =localStorage.getItem('ljx_token');
+        if (token) {
+            config.headers.common['token'] =token;
+        }
+        return config
+    },
+    err => {
+        return Promise.reject(err);
+    }
+)
 //上传照片
 export const UPLOAD_IMG=(params,config)=>{
     return Ajax.post('/upload/image',params,config).then(res=>res.data)

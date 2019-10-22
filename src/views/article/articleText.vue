@@ -1,14 +1,14 @@
 <template>
     <div class="artTextBody">
         <b-container class="bv-example-row">
-            <b-row v-if="Object.keys(artInfo)">
+            <b-row v-if="Object.keys(artInfo).length != 0">
                 <b-col>
                     <h2 v-text="artInfo.title"></h2>
                     <div style="padding-bottom: 10px">
                         <p class="skyBlue">作者:<span v-text="artInfo.userName"></span></p>
                         <p class="gary"><span v-text="artInfo.uploadDate"></span></p>
                     </div>
-                    <div class="artHtml" v-html="artInfo.articleText"></div>
+                    <div class="artHtml" v-html="artInfo.articleHtml"></div>
                 </b-col>
             </b-row>
             <b-row v-else>
@@ -17,6 +17,15 @@
                 </b-col>
             </b-row>
         </b-container>
+        <b-modal id="my-modal" hide-footer size="sm" title="提示">
+            <div class="d-block text-center">
+                <p v-text="errMsg"></p>
+            </div>
+            <div class="bvModalBtn" style="text-align: right">
+                <b-button variant="success" @click="$router.push({path:'/login'})">确定</b-button>
+                <b-button @click="$bvModal.hide('my-modal')">取消</b-button>
+            </div>
+        </b-modal>
     </div>
 </template>
 
@@ -26,7 +35,8 @@
         name: "articleText",
         data(){
             return{
-                artInfo:{}
+                artInfo:{},
+                errMsg:'请求失败,请重新登录'
             }
         },
         created(){
@@ -35,7 +45,13 @@
         methods:{
             init(id){
                 QUERY_ARTICLE({id}).then(res=>{
-                    if(res.succ)this.artInfo = res.data
+                    if(res.succ){
+                        this.artInfo = res.data
+                    }else{
+                        localStorage.clear();
+                        this.errMsg = res.errMsg;
+                        this.$bvModal.show('my-modal')
+                    }
                 })
             }
         }

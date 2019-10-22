@@ -1,40 +1,49 @@
 <template>
   <div class="home">
     <div class="swiperBox">
-      <b-carousel
-              id="carousel-fade"
-              style="text-shadow: 0px 0px 2px #000"
-              fade
-              indicators
-              img-width="1024"
-              img-height="480"
-      >
-        <b-carousel-slide
-                v-for="(item,index) in imgsList"
-                :key="index"
-                caption="WELCOME TO MY BLOG"
-                content-visible-up="md"
-                :text="item.text"
-                :img-src="item.url"
-        ></b-carousel-slide>
-      </b-carousel>
-    </div>
+        <b-carousel
+                id="carousel-fade"
+                style="text-shadow: 0px 0px 2px #000"
+                fade
+                indicators
+                img-width="1024"
+                img-height="480"
+        >
+          <b-carousel-slide
+                  v-for="(item,index) in imgsList"
+                  :key="index"
+                  caption="WELCOME TO MY BLOG"
+                  content-visible-up="md"
+                  :text="item.text"
+                  :img-src="item.url"
+          ></b-carousel-slide>
+        </b-carousel>
+      </div>
     <div class="d-none d-md-block all">
       <b-container>
         <b-row>
           <b-col class="fffCol" >
-            SPRING
+            <div class="leftFull">
+              <h4 v-text="sentence1.title" style="color:#9b252c;"></h4>
+              <p class="padRigth" v-text="sentence1.text"></p>
+            </div>
           </b-col>
           <div class="centerBox">
           </div>
           <b-col class="redColor">
-            SUMMER
+            <div class="rightFull fffText">
+              <h4 v-text="sentence2.title"></h4>
+              <p class="padLeft" v-text="sentence2.text"></p>
+            </div>
           </b-col>
         </b-row>
         <b-row>
           <b-col class="greenCol"></b-col>
           <div class="bottomBox">
-            <div class="left">AUTUMN</div>
+            <div class="left fffText">
+              <h4 v-text="sentence3.title"></h4>
+              <p class="alignRight" v-text="sentence3.text"></p>
+            </div>
           </div>
           <b-col class="bgc">
             <div>
@@ -67,15 +76,27 @@ export default {
       return{
           imgsList:[{
               text:'生活不止眼前的苟且,还有诗和远方!',
-              url:require("../assets/static/images/life1.png")
+              url:require("../assets/static/images/life1.png") ||''
             },{
               text:'不是因为成功才坚持,而是因为坚持才能成功!',
-              url:require("../assets/static/images/life2.png")
+              url:require("../assets/static/images/life2.png") || ''
             },{
               text:'以兴趣驱动工作才是最好的状态!',
-              url:require("../assets/static/images/life3.png")
+              url:require("../assets/static/images/life3.png") || ''
             }
           ],
+          sentence1:{
+              title:"Only love can withstand the long years",
+              text:"唯有热爱方能抵御岁月漫长。"
+          },
+          sentence2:{
+              title:"Save tenderness for those closest to you",
+              text:"把温柔留给最亲近的人。"
+          },
+          sentence3:{
+              title:"The future,dreams can be expected",
+              text:"未来,梦想可期。"
+          },
           datas:[{
               num:"0",
               title:"文章数量",
@@ -88,7 +109,7 @@ export default {
               describe:''
           },{
               num:"",
-              title:"总访问量",
+              title:"总浏览量",
               path:"",
               describe:''
           }]
@@ -118,6 +139,9 @@ export default {
   }
   .fffCol{
     background-color: #fff;
+  }
+  .fffText{
+    color: #fff;
   }
   .centerBox{
     width: 200px;
@@ -157,10 +181,40 @@ export default {
     height: 200px;
     position: relative;
   }
+  .leftFull{
+    padding-top: 60px;
+    padding-right: 30px;
+    text-align: right;
+  }
+  .rightFull{
+    padding-top: 60px;
+    padding-left: 30px;
+    text-align: left;
+  }
+  .leftFull h4,.rightFull h4{
+    font-weight: 600;
+  }
+  .padRigth{
+    padding-right: 30px;
+  }
+  .padLeft{
+    padding-left: 30px;
+  }
+  .alignRight{
+    text-align: right;
+    padding-right: 30px;
+  }
   .left{
+    padding-top: 70px;
     position: absolute;
     top: 0;
     right: 0;
+    width: 480px;
+  }
+  .left h4{
+    padding-right: 20px;
+    text-align: right;
+    font-weight: 600;
   }
 .redColor{
   background-color: #9b252c;

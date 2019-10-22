@@ -59,4 +59,7 @@ html,body,#app{
 .image img{
   width: 100%;
 }
+.bvModalBtn>button{
+  margin-right: 20px;
+}
 </style>

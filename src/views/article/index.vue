@@ -1,15 +1,15 @@
 <template>
     <div class="artPage">
-        <b-container class="bv-example-row">
+        <b-container class="bv-example-row" v-if="allArticle.length>0">
             <b-row>
-                <b-col class="artBody" v-if="allArticle.length>0">
+                <b-col class="artBody">
                     <div class="oneArt" v-for="(item,index) in allArticle" :key="index">
                         <h3 class="title" v-text="item.title"></h3>
                         <div class="someInfo">
                             <i class="iconfont icon-zuozhe1"></i><span v-text="item.userName"></span>
                             <i class="iconfont icon-time" style="margin-left: 20px;"></i><span v-text="item.uploadDate"></span>
                         </div>
-                        <div class="artCont" v-html="item.articleText"></div>
+                        <div class="artCont" v-html="item.articleHtml"></div>
                         <div class="artBottom">
                             <span @click="$router.push({path:'/articleText?id='+item.id})">阅读详情>></span>
                         </div>
