@@ -44,7 +44,8 @@
     margin-left: 15px;
     width: 20rem;
     background-color: #fff;
-    max-height: 600px;
+    max-height: 800px;
+    min-height: 600px;
 }
 .uscTop{
     border-bottom: 1px solid #ccc;

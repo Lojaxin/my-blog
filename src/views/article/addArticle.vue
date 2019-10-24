@@ -19,6 +19,15 @@
                 </b-col>
             </b-row>
         </b-container>
+        <b-modal id="my-modal" hide-footer size="sm" title="提示">
+            <div class="d-block text-center">
+                <p>您还没有登录,是否先去登录?</p>
+            </div>
+            <div class="bvModalBtn" style="text-align: right">
+                <b-button variant="success" @click="$router.push({path:'/login'})">确定</b-button>
+                <b-button @click="$bvModal.hide('my-modal')">取消</b-button>
+            </div>
+        </b-modal>
     </div>
 </template>
 
@@ -91,25 +100,29 @@
             },
             //获取富文本编辑器内容
             geteditor(){
-                let requestRes={
-                    title:this.title,
-                    editor:this.editor.getData(),
-                    userId:this.$store.state.user.userId,
-                    upDate:this.getDate()
-                };
-                EDIT_POST(requestRes).then(res=>{
-                    if(res.succ){
-                        this.$bvToast.toast("恭喜您!文章发表成功啦!", {
-                            title: '发表成功',
-                            autoHideDelay: 3000
-                        })
-                    }else{
-                        this.$bvToast.toast(res.errMsg, {
-                            title: '发表失败',
-                            autoHideDelay: 3000
-                        })
-                    }
-                })
+                // if(this.$store.state.user.userId){
+                    let requestRes={
+                        title:this.title,
+                        editor:this.editor.getData(),
+                        userId:this.$store.state.user.userId,
+                        upDate:this.getTime()
+                    };
+                    EDIT_POST(requestRes).then(res=>{
+                        if(res.succ){
+                            this.$bvToast.toast("恭喜您!文章发表成功啦!", {
+                                title: '发表成功',
+                                autoHideDelay: 3000
+                            })
+                        }else{
+                            this.$bvToast.toast(res.errMsg, {
+                                title: '发表失败',
+                                autoHideDelay: 3000
+                            })
+                        }
+                    })
+                // }else{
+                //     this.$bvModal.show('my-modal')
+                // }
             }
         }
     }

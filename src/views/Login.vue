@@ -50,6 +50,17 @@
                                     <b-form-input v-model="register.password" type="password"></b-form-input>
                                 </b-col>
                             </b-row>
+                            <b-row class="marginTop10">
+                                <b-col cols="3">
+                                    <label>验证码</label>
+                                </b-col>
+                                <b-col cols="5">
+                                    <b-form-input v-model="vftCode" type="text"></b-form-input>
+                                </b-col>
+                                <b-col cols="4" style="padding: 0;" @click="refreshCode">
+                                    <sIdentify :identifyCode="identifyCode"></sIdentify>
+                                </b-col>
+                            </b-row>
                             <div class="loginBtn" @click="toRegister">注册</div>
                         </b-card-text>
                     </b-tab>
@@ -61,8 +72,12 @@
 
 <script>
     import {LOGIN,REGISTER} from "../assets/api/api.js"
+    import sIdentify from "../components/identify";
     export default {
         name: "Login",
+        components:{
+            sIdentify
+        },
         data(){
           return{
               login:{
@@ -74,8 +89,15 @@
                   email:'',
                   password:''
               },
-              tips:''
+              tips:'',
+              vftCode:'',
+              identifyCodes: "1234567890abcdefgh",
+              identifyCode: ""//生成的验证码
           }
+        },
+        mounted() {
+            this.identifyCode = "";
+            this.makeCode(this.identifyCodes, 4);
         },
         methods:{
             toLogin(){
@@ -110,6 +132,13 @@
 
             },
             toRegister(){
+                if(this.vftCode!=this.identifyCode){
+                    this.$bvToast.toast(`验证码不正确。`, {
+                        title: '提示',
+                        autoHideDelay: 3000
+                    })
+                    return
+                }
                 if(this.register.userName==''){
                     this.$bvToast.toast(`请输入用户名`, {
                         title: '提示',
@@ -144,12 +173,32 @@
                         })
                     }
                 })
+            },
+            randomNum(min, max) {
+                return Math.floor(Math.random() * (max - min) + min);
+            },
+            refreshCode() {
+                this.identifyCode = "";
+                this.makeCode(this.identifyCodes, 4);
+            },
+            makeCode(o, l) {
+                for (let i = 0; i < l; i++) {
+                    this.identifyCode += this.identifyCodes[
+                        this.randomNum(0, this.identifyCodes.length)
+                        ];
+                }
             }
         }
     }
 </script>
 
 <style scoped>
+    .code {
+        margin: 400px auto;
+        width: 84px;
+        height: 40px;
+        border: 1px solid red;
+    }
 .loginPage{
     position: relative;
     width: 100%;

@@ -159,7 +159,7 @@ export default {
     left: 0;
     width: 100%;
     height: 400px;
-    background: url("../assets/static/images/life44.jpg") no-repeat center;
+    background: url("../assets/static/images/life44.png") no-repeat center;
     background-size: cover;
     z-index: 10;
   }

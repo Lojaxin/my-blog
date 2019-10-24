@@ -2,7 +2,8 @@
  * 分离请求处理
  */
 import Ajax from "axios";
-const baseURL = 'http://localhost:8099';  //线上的URL前缀
+//开发模式时需要开启，生产环境关闭
+const baseURL = 'http://localhost:8099';
 Ajax.defaults.baseURL = baseURL;
 //返回token
 

@@ -9,7 +9,7 @@
                         <b-col md="3" lg="5" class="logo">Arbort的博客</b-col>
                         <b-col>
                             <b-row class="list">
-                                <b-col v-for="(item,index) in memuList" :key="index"><span :class="item.check?'menu active':'menu'" @click="checkWho(item)">{{item.text}}</span></b-col>
+                                <b-col v-for="(item,index) in memuList" :key="index"><span :class="item.check?'menu active':'menu'" @click="checkWho(item.path)">{{item.text}}</span></b-col>
                             </b-row>
                         </b-col>
                     </b-row>
@@ -117,11 +117,20 @@
                 }
             }
         },
+        created(){
+            this.oldVal = this.getNowPath();
+        },
         methods:{
-            checkWho(item){
-                if(item.path!=this.oldVal){
-                    this.oldVal = item.path;
-                    this.$router.push({path:item.path});
+            getNowPath(){
+                let allPath = window.location.href;
+                var index=allPath.indexOf("#/");
+                let newPath =allPath.substring(index+1,allPath.length);
+                return newPath;
+            },
+            checkWho(path){
+                if(path!=this.oldVal){
+                    this.oldVal = path;
+                    this.$router.push({path});
                 }
             },
             linkTo(path){
