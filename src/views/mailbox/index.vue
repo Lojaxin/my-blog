@@ -102,6 +102,7 @@
                 text:'',
                 firstText:'',
                 isBack:true,//留言点赞的节流阀
+                waitSub:true,//留言频率控制器
                 paging:{
                     total: 0,//总留言
                     nums:10,//默认一页10条数据
@@ -195,6 +196,18 @@
             },
             //提交留言
             subFirst(){
+                if(!this.waitSub){
+                    this.$bvToast.toast(`请勿频繁留言!`, {
+                        title: '提示',
+                        autoHideDelay: 3000
+                    })
+                    return
+                }
+                this.waitSub = false;
+                //前端控制三分钟留言一次
+                setTimeout(()=>{
+                    this.waitSub = true;
+                },1000*60*3)
                 if(this.$store.state.user.userId){
                     if(this.firstText==''){
                         this.$bvToast.toast(`请先留下你的笔墨..`, {

@@ -113,6 +113,7 @@
                                 title: '发表成功',
                                 autoHideDelay: 3000
                             })
+                            this.$router.push({path:'/article'})
                         }else{
                             this.$bvToast.toast(res.errMsg, {
                                 title: '发表失败',
