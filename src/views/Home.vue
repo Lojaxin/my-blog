@@ -147,7 +147,7 @@ export default {
     width: 200px;
     height: 200px;
     overflow: hidden;
-    background: url("../assets/static/images/bgc11.png") no-repeat center;
+    background: url("../assets/static/images/bgc11.jpg") no-repeat center;
     background-size: cover;
   }
   .bgc{
@@ -159,7 +159,7 @@ export default {
     left: 0;
     width: 100%;
     height: 400px;
-    background: url("../assets/static/images/life44.png") no-repeat center;
+    background: url("../assets/static/images/life44.jpg") no-repeat center;
     background-size: cover;
     z-index: 10;
   }
@@ -169,7 +169,7 @@ export default {
     left: 0;
     width: 200px;
     height: 200px;
-    background: url("../assets/static/images/life33.png") no-repeat center;
+    background: url("../assets/static/images/life33.jpg") no-repeat center;
     background-size: cover;
   }
   .greenCol{

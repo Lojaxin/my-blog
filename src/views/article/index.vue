@@ -14,6 +14,9 @@
                             <span @click="$router.push({path:'/articleText?id='+item.id})">阅读详情>></span>
                         </div>
                     </div>
+                    <div>
+                        <b-pagination v-model="article.currentPage" :total-rows="article.total" size="sm" align="right" @change="changePage"></b-pagination>
+                    </div>
                 </b-col>
                 <rightUser class="d-none d-md-block"></rightUser>
             </b-row>
@@ -32,6 +35,11 @@
         data(){
             return{
                 allArticle:[],
+                article:{
+                    total: 0,//总留言
+                    nums:10,//默认一页10条数据
+                    currentPage: 1 //默认是第一页
+                }
             }
         },
         created(){
@@ -44,6 +52,12 @@
                         this.allArticle = res.data;
                     }
                 })
+            },
+            changePage(val){
+                if(this.article.currentPage!=val){
+                    this.article.currentPage = val;
+                    this.init()
+                }
             }
         }
     }

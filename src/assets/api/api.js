@@ -3,8 +3,8 @@
  */
 import Ajax from "axios";
 //开发模式时需要开启，生产环境关闭
-const baseURL = 'http://localhost:8099';
-Ajax.defaults.baseURL = baseURL;
+// const baseURL = 'http://localhost:8099';
+// Ajax.defaults.baseURL = baseURL;
 //返回token
 
 Ajax.interceptors.request.use(

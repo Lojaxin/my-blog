@@ -166,8 +166,10 @@
                 }
             },
             changePage(val){
-                this.paging.currentPage = val;
-                this.queryMsg()
+                if(this.paging.currentPage != val){
+                    this.paging.currentPage = val;
+                    this.queryMsg()
+                }
             },
             //留言点赞
             isLike(id){

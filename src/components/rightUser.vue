@@ -34,6 +34,7 @@
             let userInfo = this.$store.state.user;
             if(userInfo.userName){
                 this.nickName = userInfo.nickName || userInfo.userName;
+                this.headImg = userInfo.headImg || '';
             }
         }
     }
@@ -52,7 +53,7 @@
     position: relative;
     padding-top: 75px;
     height: 50px;
-    background:url("../assets/static/images/titleImg.png") no-repeat center;
+    background:url("../assets/static/images/titleImg.jpg") no-repeat center;
 }
 .headImg{
     background-color: #fff;
