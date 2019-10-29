@@ -119,6 +119,12 @@
                                 title: '发表失败',
                                 autoHideDelay: 3000
                             })
+                            if(res.errCode==666){
+                                let that = this;
+                                setTimeout(()=>{
+                                    that.$router.push({path:'/login'})
+                                },2000)
+                            }
                         }
                     })
                 // }else{

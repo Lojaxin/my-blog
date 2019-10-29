@@ -65,6 +65,9 @@
         </b-row>
       </b-container>
     </div>
+    <div class="beian">
+      <a href="http://www.beian.miit.gov.cn/">鄂ICP备19026413号</a>
+    </div>
   </div>
 </template>
 
@@ -266,5 +269,12 @@ export default {
     border-width: 20px;
     top: 30px;
     left: 8px;
+  }
+  .beian{
+    text-align: center;
+  }
+  .beian a{
+    color: #333;
+    font-size: 14px;
   }
 </style>

@@ -141,6 +141,17 @@
                             title: '提示',
                             autoHideDelay: 3000
                         })
+                    }else{
+                        this.$bvToast.toast(res.errMsg, {
+                            title: '留言失败',
+                            autoHideDelay: 3000
+                        })
+                        if(res.errCode==666){
+                            let that = this;
+                            setTimeout(()=>{
+                                that.$router.push({path:'/login'})
+                            },2000)
+                        }
                     }
                 })
             },
@@ -183,6 +194,17 @@
                         MSG_GOODS(requestRes).then(res=>{
                             if(res.succ){
                                 this.queryMsg()
+                            }else{
+                                this.$bvToast.toast(res.errMsg, {
+                                    title: '点赞失败',
+                                    autoHideDelay: 3000
+                                })
+                                if(res.errCode==666){
+                                    let that = this;
+                                    setTimeout(()=>{
+                                        that.$router.push({path:'/login'})
+                                    },2000)
+                                }
                             }
                             this.isBack = true;
                         })
