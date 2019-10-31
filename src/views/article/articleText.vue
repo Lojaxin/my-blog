@@ -33,6 +33,15 @@
     import {QUERY_ARTICLE} from "../../assets/api/api.js";
     export default {
         name: "articleText",
+        metaInfo(){//异步用法
+            return{
+                title: this.artInfo.title,
+                meta: [{
+                    name: 'describe',
+                    content: this.artInfo.title
+                }]
+            }
+        },
         data(){
             return{
                 artInfo:{},

@@ -6,7 +6,7 @@ import Login from './views/Login.vue'
 Vue.use(Router)
 
 export default new Router({
-  // mode: 'history',
+  mode: 'history',//使用Prerender-spa-plugin不能使用hash模式
   routes: [
     {
       path: '/',

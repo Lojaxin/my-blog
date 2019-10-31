@@ -75,6 +75,13 @@
   import {GET_STATISTICS} from "../assets/api/api.js";
 export default {
   name: 'home',
+    metaInfo:{//静态用法
+        title: 'Arbort的博客',
+        meta: [{
+            name: 'describe',
+            content: 'Arbort的博客,罗佳新的博客'
+        }]
+    },
     data(){
       return{
           imgsList:[{
