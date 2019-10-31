@@ -134,6 +134,7 @@
                     if(newVal=='/addArticle' || newVal=='/articleText'){
                         this.memuList[1].check = true
                     }
+                    this.oldVal = this.getNowPath();
                 }
             }
         },
@@ -147,10 +148,7 @@
         },
         methods:{
             getNowPath(){
-                let allPath = window.location.href;
-                var index=allPath.indexOf("#/");
-                let newPath =allPath.substring(index+1,allPath.length);
-                return newPath;
+                return window.location.pathname;
             },
             checkWho(path){
                 if(path!=this.oldVal){

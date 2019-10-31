@@ -91,7 +91,7 @@
               },
               tips:'',
               vftCode:'',
-              identifyCodes: "1234567890abcdefgh",
+              identifyCodes: "1234567890abcdefgh",//随机的字符集
               identifyCode: ""//生成的验证码
           }
         },
