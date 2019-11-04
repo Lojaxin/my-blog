@@ -34,10 +34,15 @@ export default new Router({
           component: () => import('./views/article/articleText.vue')
       },
     {
-        path: '/about',
-        name: 'about',
-        component: () => import('./views/about/index.vue')
-    },
+          path: '/about',
+          name: 'about',
+          component: () => import('./views/about/index.vue')
+      },
+      {
+          path: '/userInfo',
+          name: 'userInfo',
+          component: () => import('./views/userInfo/index.vue')
+      },
     {
         path: '/mailbox',
         name: 'mailbox',

@@ -22,6 +22,7 @@
                             <p>本站前端采用的Vue+BootstrapVue，所以这还是一个响应式的哦。</p>
                             <p>后端采用的Koa2+Mysql，阿里云服务器，用nginx做的代理。</p>
                             <p>UI嘛，纯属东拼西凑，看看就行，毕竟建站的目的也就是想用node练练手。</p>
+                            <p>说明:本站除项目依赖以外,前后端代码全部为本人手写。</p>
                             <h3>联系方式</h3>
                             <a :href="myWeixin" download="share_l_weixin.png">
                                 <img :src="myWeixin">
@@ -35,7 +36,6 @@
 </template>
 
 <script>
-    import {UPLOAD_IMG} from "../../assets/api/api.js"
     export default {
         name: "index",
         data(){
@@ -44,21 +44,7 @@
             }
         },
         methods:{
-            changeImg(){
-                /*
-                * 以下注释为上传图片
-                * */
-                let inputDOM = this.$refs.inputer;
-                let file =inputDOM.files[0];//上传的文件
-                let param = new FormData(); //创建form对象
-                param.append('file',file);//通过append向form对象添加数据
-                let config = {
-                    headers:{'Content-Type':'multipart/form-data'}
-                }; //添加请求头
-                UPLOAD_IMG(param,config).then(res=>{
-                    console.log(res)
-                })
-            },
+
         }
     }
 </script>

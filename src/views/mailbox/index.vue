@@ -32,7 +32,7 @@
                                         <i class="iconfont icon-yonghu-tianchong" v-else></i>
                                     </div>
                                     <b-col>
-                                        <div class="nickStyle">{{item.userName}}<span v-text="item.uploadTime"></span></div>
+                                        <div class="nickStyle">{{item.nickName || item.userName}}<span v-text="item.uploadTime"></span></div>
                                         <div v-text="item.message"></div>
                                         <div class="otherOps">
                                             <i class="iconfont icon-dianzan" @click="isLike(item.id)"></i><span v-text="'('+item.goods+')'"></span>
@@ -50,7 +50,7 @@
                                                         <i class="iconfont icon-yonghu-tianchong" v-else></i>
                                                     </div>
                                                     <b-col>
-                                                        <div class="replyNick">{{childItem.userName}}<span v-text="childItem.uploadTime"></span></div>
+                                                        <div class="replyNick">{{childItem.nickName || childItem.userName}}<span v-text="childItem.uploadTime"></span></div>
                                                         <div v-text="childItem.message"></div>
                                                     </b-col>
                                                 </b-row>

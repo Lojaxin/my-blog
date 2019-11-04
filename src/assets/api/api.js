@@ -3,8 +3,8 @@
  */
 import Ajax from "axios";
 //开发模式时需要开启，生产环境关闭
-const baseURL = 'http://localhost:8099';
-Ajax.defaults.baseURL = baseURL;
+// const baseURL = 'http://localhost:8099';
+// Ajax.defaults.baseURL = baseURL;
 //返回token
 
 Ajax.interceptors.request.use(
@@ -62,4 +62,8 @@ export const GET_STATISTICS = (params,config)=>{
 //添加浏览量
 export const ADD_BROWSE = (params,config)=>{
     return Ajax.get("/api/browse",{params},config).then(res=>res.data)
+}
+//修改个人信息接口
+export const UPDATE_USER = (params,config)=>{
+    return Ajax.post("/api/updateUser",params,config).then(res=>res.data)
 }

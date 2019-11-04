@@ -62,4 +62,9 @@ html,body,#app{
 .bvModalBtn>button{
   margin-right: 20px;
 }
+.upMoudel .btn-secondary,.upMoudel .show>.btn-secondary.dropdown-toggle,.upMoudel .btn-secondary{
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #000;
+}
 </style>

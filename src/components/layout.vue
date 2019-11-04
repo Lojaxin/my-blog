@@ -30,7 +30,7 @@
         <transition name="box">
             <div class="box d-md-none" v-if="showLeft">
                 <div class="leftTop">
-                    <div class="headImage">
+                    <div class="headImage" @click="toInfo">
                         <b-img :src="headImg" fluid v-if="headImg!=''"></b-img>
                         <i class="iconfont icon-yonghu-tianchong" v-else></i>
                     </div>
@@ -163,6 +163,11 @@
                 }
                 this.showLeft=!this.showLeft
             },
+            toInfo(){
+                if(this.nickName!=''){
+                    this.linkTo('/userInfo')
+                }
+            },
             toLogin(){
                 this.showLeft=!this.showLeft;
                 this.$router.push({path:'/login'})
@@ -187,7 +192,7 @@
 .headImage{
     display: inline-block;
     background-color: #fff;
-    padding: 3px;
+    /*padding: 3px;*/
     border-radius: 50%;
     width: 60px;
     height: 60px;

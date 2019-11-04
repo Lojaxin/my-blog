@@ -5,7 +5,7 @@
                 <b-col>
                     <h2 v-text="artInfo.title"></h2>
                     <div style="padding-bottom: 10px">
-                        <p class="skyBlue">作者:<span v-text="artInfo.userName"></span></p>
+                        <p class="skyBlue">作者:<span v-text="artInfo.nickName || artInfo.userName"></span></p>
                         <p class="gary"><span v-text="artInfo.uploadDate"></span></p>
                     </div>
                     <div class="artHtml" v-html="artInfo.articleHtml"></div>

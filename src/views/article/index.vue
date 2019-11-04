@@ -6,7 +6,7 @@
                     <div class="oneArt" v-for="(item,index) in allArticle" :key="index">
                         <h3 class="title" v-text="item.title"></h3>
                         <div class="someInfo">
-                            <i class="iconfont icon-zuozhe1"></i><span v-text="item.userName"></span>
+                            <i class="iconfont icon-zuozhe1"></i><span v-text="item.nickName || item.userName"></span>
                             <i class="iconfont icon-time" style="margin-left: 20px;"></i><span v-text="item.uploadDate"></span>
                         </div>
                         <div class="artCont" v-html="item.articleHtml"></div>
