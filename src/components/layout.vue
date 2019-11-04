@@ -31,18 +31,18 @@
             <div class="box d-md-none" v-if="showLeft">
                 <div class="leftTop">
                     <div class="headImage" @click="toInfo">
-                        <b-img :src="headImg" fluid v-if="headImg!=''"></b-img>
+                        <b-img :src="$store.state.user.headImg" fluid v-if="$store.state.user.headImg"></b-img>
                         <i class="iconfont icon-yonghu-tianchong" v-else></i>
                     </div>
                     <div class="logOr">
-                        <b-row v-if="nickName==''">
+                        <b-row v-if="$store.state.user.userName">
                             <b-col>
-                                <b-button @click="toLogin">登录/注册</b-button>
+                                <div v-text="$store.state.user.nickName || $store.state.user.userName"></div>
                             </b-col>
                         </b-row>
                         <b-row v-else>
                             <b-col>
-                                <div v-text="nickName"></div>
+                                <b-button @click="toLogin">登录/注册</b-button>
                             </b-col>
                         </b-row>
                     </div>
@@ -115,8 +115,6 @@
                 }],
                 showLeft:false,
                 oldVal:'/',
-                headImg:'',
-                nickName:''
             }
         },
         watch:{
@@ -140,11 +138,6 @@
         },
         created(){
             this.oldVal = this.getNowPath();
-            let userInfo = this.$store.state.user;
-            if(userInfo.userName){
-                this.nickName = userInfo.nickName || userInfo.userName;
-                this.headImg = userInfo.headImg || '';
-            }
         },
         methods:{
             getNowPath(){
@@ -164,7 +157,7 @@
                 this.showLeft=!this.showLeft
             },
             toInfo(){
-                if(this.nickName!=''){
+                if(this.$store.state.user.userName){
                     this.linkTo('/userInfo')
                 }
             },

@@ -28,7 +28,7 @@
                             <b-container fluid>
                                 <b-row>
                                     <div class="headImg">
-                                        <b-img :src="item.headImg" fluid v-if="item.headImg"></b-img>
+                                        <b-img :src="item.head_img" fluid v-if="item.head_img"></b-img>
                                         <i class="iconfont icon-yonghu-tianchong" v-else></i>
                                     </div>
                                     <b-col>
@@ -46,7 +46,7 @@
                                             <b-container fluid>
                                                 <b-row class="marginBot10" v-for="(childItem,childIndex) in item.children" :key="childIndex">
                                                     <div class="headImg">
-                                                        <b-img :src="childItem.headImg" fluid v-if="childItem.headImg"></b-img>
+                                                        <b-img :src="childItem.head_img" fluid v-if="childItem.head_img"></b-img>
                                                         <i class="iconfont icon-yonghu-tianchong" v-else></i>
                                                     </div>
                                                     <b-col>
