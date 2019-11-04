@@ -67,3 +67,7 @@ export const ADD_BROWSE = (params,config)=>{
 export const UPDATE_USER = (params,config)=>{
     return Ajax.post("/api/updateUser",params,config).then(res=>res.data)
 }
+//修改头像接口
+export const UPDATE_HEAD_IMG = (params,config)=>{
+    return Ajax.post("/api/updateHeadImg",params,config).then(res=>res.data)
+}

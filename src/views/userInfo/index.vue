@@ -73,7 +73,7 @@
 </template>
 
 <script>
-    import {UPDATE_USER,UPLOAD_IMG} from "../../assets/api/api.js";
+    import {UPDATE_USER,UPLOAD_IMG,UPDATE_HEAD_IMG} from "../../assets/api/api.js";
     export default {
         name: "index",
         data(){
@@ -92,6 +92,7 @@
         },
         created(){
             this.init();
+            console.log(this.$store.state.user)
         },
         methods:{
             init(){
@@ -169,19 +170,21 @@
                 }; //添加请求头
                 UPLOAD_IMG(param,config).then(res=>{
                     if(res.code=='1'){
-                        this.$bvToast.toast("头像修改成功!", {
-                            title: '成功提示',
-                            autoHideDelay: 3000
-                        })
-                        //更新头像信息
-                        let auser = localStorage.getItem('userInfoForMe');
-                        if(auser){
-                            let jsonUser = JSON.parse(auser);
-                            jsonUser.headImg = res.url;
-                            this.$store.commit('getUser',jsonUser);
-                            localStorage.setItem('userInfoForMe',JSON.stringify(jsonUser));
-                            this.init();
+                        let queRes = {
+                            userId:this.$store.state.user.userId,
+                            headImg:res.url
                         }
+                        UPDATE_HEAD_IMG(queRes).then(result=>{
+                            if(result.succ){
+                                this.$store.commit('getUser',result.data);
+                                localStorage.setItem('userInfoForMe',JSON.stringify(result.data));
+                                this.init();
+                                this.$bvToast.toast("头像修改成功!", {
+                                    title: '成功提示',
+                                    autoHideDelay: 3000
+                                })
+                            }
+                        })
                     }else{
                         this.$bvToast.toast("修改失败!请检查文件格式及当前网络环境!", {
                             title: '失败提示',
