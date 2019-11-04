@@ -28,10 +28,14 @@
                                 </b-col>
                             </b-row>
                         </b-container>
+                        <div style="text-align: center">
+                            <b-button variant="danger" @click="logingOut">退出登录</b-button>
+                        </div>
                     </div>
                 </b-col>
             </b-row>
         </b-container>
+
         <b-modal id="my-modal" scrollable hide-footer centered title="信息修改">
             <div>
                 <b-container fluid>
@@ -98,6 +102,21 @@
                     }else{
                         this.userInfo.sex ="女"
                     }
+                }
+            },
+            logingOut(){
+                localStorage.clear();
+                if(!localStorage.getItem('userInfoForMe')){
+                    this.$store.commit('getUser',{});
+                    this.$bvToast.toast("退出登录,2秒后返回首页", {
+                        title: '提示',
+                        autoHideDelay: 2000
+                    })
+                    this.$router.push({path:'/'})
+                }else{
+                    localStorage.removeItem("userInfoForMe");
+                    this.$store.commit('getUser',{});
+                    localStorage.clear();
                 }
             },
             //修改用户信息
