@@ -208,7 +208,7 @@
 }
 .loginBox{
     position: absolute;
-    z-index: 8888;
+    z-index: 9;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
