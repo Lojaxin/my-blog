@@ -78,7 +78,13 @@ export default {
     metaInfo:{//静态用法
         title: 'Arbort的博客',
         meta: [{
-            name: 'describe',
+            name: 'robots',
+            content: 'all'
+        },{
+            name: 'keywords',
+            content: '罗佳新,罗佳新的网站,Arbort'
+        },{
+            name: 'description',
             content: 'Arbort的博客,罗佳新的博客'
         }]
     },
