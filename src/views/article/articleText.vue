@@ -37,7 +37,7 @@
             return{
                 title: this.artInfo.title,
                 meta: [{
-                    name: 'describe',
+                    name: 'keywords',
                     content: this.artInfo.title
                 }]
             }

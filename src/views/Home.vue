@@ -76,7 +76,7 @@
 export default {
   name: 'home',
     metaInfo:{//静态用法
-        title: 'Arbort的博客',
+        // title: 'Arbort的博客',
         meta: [{
             name: 'robots',
             content: 'all'
