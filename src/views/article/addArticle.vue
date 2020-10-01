@@ -1,9 +1,9 @@
 <template>
     <div class="myEdit">
-        <!--<div>-->
-            <!--<input name="file" type="file" multiple ref="fulAvatar"/>-->
-            <!--<button type="submit" @click="updateImg">上 传</button>-->
-        <!--</div>-->
+        <!-- <div>
+            <input name="file" type="file" multiple ref="fulAvatar"/>
+            <button type="submit" @click="updateImg">上 传</button>
+        </div> -->
         <b-container>
             <b-row  class="justify-content-md-center">
                 <b-col md="10" cols="12">
@@ -52,22 +52,26 @@
             this.initCKEditor()
         },
         methods: {
-            //图片上传
-            // updateImg(){
-            //     let files = this.$refs.fulAvatar.files;
-            //     let param = new FormData(); //创建form对象
-            //     for(let key in files){
-            //         param.append('file',files[key]);//通过append向form对象添加数据
-            //     }
-            //     // console.log(param.get('file')); //FormData私有类对象，访问不到，可以通过get判断值是否传进去
-            //     let config = {
-            //       headers:{'Content-Type':'multipart/form-data'}
-            //     }; //添加请求头
-            //     this.$axios.post('http://localhost:8099/upload/image',param,config)
-            //       .then(response=>{
-            //         console.log(response);
-            //     })
-            // },
+            //七牛云图片上传
+            updateImg(){
+                let files = this.$refs.fulAvatar.files;
+                let param = new FormData(); //创建form对象
+                for(let key in files){
+                    param.append('file',files[key]);//通过append向form对象添加数据
+                }
+                param.append('userId','1');
+                param.append('takeTime','2019-12-18');
+                param.append('upTime','2019-12-19');
+                console.log(param)
+                // console.log(param.get('file')); //FormData私有类对象，访问不到，可以通过get判断值是否传进去
+                let config = {
+                  headers:{'Content-Type':'multipart/form-data'}
+                }; //添加请求头
+                this.$axios.post('http://localhost:8099/api/qiniuUp',param,config)
+                  .then(response=>{
+                    console.log(response);
+                })
+            },
             //初始化富文本编辑器
             initCKEditor() {
                 let that = this;

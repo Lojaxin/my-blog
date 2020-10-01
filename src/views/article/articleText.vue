@@ -44,7 +44,9 @@
         },
         data(){
             return{
-                artInfo:{},
+                artInfo:{
+                    title:"默认是文章"
+                },
                 errMsg:'请求失败,请重新登录'
             }
         },
