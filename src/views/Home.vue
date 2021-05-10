@@ -66,7 +66,7 @@
       </b-container>
     </div>
     <div class="beian">
-      <a href="http://www.beian.miit.gov.cn/">鄂ICP备19026413号</a>
+      <a href="https://beian.miit.gov.cn/" target="_blank">鄂ICP备19026413号-2</a>
     </div>
   </div>
 </template>

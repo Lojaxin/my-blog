@@ -20,13 +20,8 @@ module.exports = {
                     // 对应自己的路由文件，比如a有参数，就需要写成 /a/param1。
                     routes: ['/', '/articleText','/article'],
                     // 这个很重要，如果没有配置这段，也不会进行预编译
-                    renderer: new Renderer({
-                        inject: {
-                            foo: 'bar'
-                        },
-                        headless: false,
-                        // 在 main.js 中 document.dispatchEvent(new Event('render-event'))，两者的事件名称要对应上。
-                        renderAfterDocumentEvent: 'render-event'
+                    renderer: new PrerenderSPAPlugin.PuppeteerRenderer({//这样写renderAfterTime生效了
+                        renderAfterTime: 5000
                     })
                 }),
             ],
